@@ -1,17 +1,22 @@
 <?php
-$name = $_POST['name'];
-$email = $_POST['email'];
-$message = $_POST['form-message'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Gather form data
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $message = $_POST['form-message'];
 
-$to = 'sajalkundu1995@gmail.com';
-$subject = 'Contact Form Submission';
-$message = 'Name: ' . $name . "\r\n" . 'Email: ' . $email . "\r\n" . 'Message: ' . $message;
+    // Set up email parameters
+    $to = "sajalkundu1995@gmail.com.com";
+    $subject = "Contact Form Submission";
+    $headers = "From: $name <$email>";
 
-$headers = 'From: ' . $email;
+    // Send the email
+    mail($to, $subject, $message, $headers);
 
-if (mail($to, $subject, $message, $headers)) {
-    echo 'Message sent successfully!';
+    // Optional: Redirect the user after sending the email
+    header("Location: index.html");
 } else {
-    echo 'Error sending message.';
+    // Handle form submission error
+    echo "Error: Form not submitted.";
 }
 ?>
