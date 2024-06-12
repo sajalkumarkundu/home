@@ -337,18 +337,21 @@
           <div class="col-lg-6 ms-auto mt-5 mt-lg-0 wow fadeInUp" data-wow-delay="0.3s">
             <h2 class="text-10 fw-600 text-center text-lg-start mb-5">Estimate your Project?</h2>
             <!-- Contact Form -->
-            <form id="contact-form" class="form-border" action="php/mail.php" method="post">
+            <form id="contact-form" class="form-border" action="https://api.web3forms.com/submit" method="POST">
               <div class="row g-4">
                 <div class="col-12">
                   <label class="form-label" for="name">What is Your Name:</label>
+                  <input type="hidden" name="access_key" value="ed929e91-c98e-4e5c-abc6-bca29b0ff507">
                   <input id="name" name="name" type="text" class="form-control py-1" required >
                 </div>
                 <div class="col-12">
                   <label class="form-label" for="email">Your Email Address:</label>
+                  <input type="hidden" name="access_key" value="ed929e91-c98e-4e5c-abc6-bca29b0ff507">
                   <input id="email" name="email" type="email" class="form-control py-1" required >
                 </div>
                 <div class="col-12">
                   <label class="form-label" for="form-message">How can I Help you?:</label>
+                  <input type="hidden" name="access_key" value="ed929e91-c98e-4e5c-abc6-bca29b0ff507">
                   <textarea id="form-message" name="form-message" class="form-control py-1" rows="4" required ></textarea>
                 </div>
                 <div class="col-12 text-center text-lg-start">
