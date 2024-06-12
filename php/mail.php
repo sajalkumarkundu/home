@@ -1,27 +1,17 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Collect form data
-    $name = htmlspecialchars($_POST['name']);
-    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-    $message = htmlspecialchars($_POST['message']);
+$name = $_POST['name'];
+$email = $_POST['email'];
+$message = $_POST['form-message'];
 
-    // Validate email
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "Invalid email format";
-        exit;
-    }
+$to = 'sajalkundu1995@gmail.com';
+$subject = 'Contact Form Submission';
+$message = 'Name: ' . $name . "\r\n" . 'Email: ' . $email . "\r\n" . 'Message: ' . $message;
 
-    // Email details
-    $to = "sajalkundu1995@gmail.com"; // Replace with your email address
-    $subject = "Contact Form Submission from $name";
-    $body = "Name: $name\nEmail: $email\n\nMessage:\n$message";
-    $headers = "From: $email";
+$headers = 'From: ' . $email;
 
-    // Send email
-    if (mail($to, $subject, $body, $headers)) {
-        echo "Email successfully sent";
-    } else {
-        echo "Email sending failed";
-    }
+if (mail($to, $subject, $message, $headers)) {
+    echo 'Message sent successfully!';
+} else {
+    echo 'Error sending message.';
 }
 ?>
