@@ -1,22 +1,35 @@
 <?php
+// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Gather form data
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $message = $_POST['form-message'];
+    // Get form data
+    $name = htmlspecialchars($_POST['name']);
+    $email = htmlspecialchars($_POST['email']);
+    $message = htmlspecialchars($_POST['form-message']);
 
-    // Set up email parameters
-    $to = "sajalkundu1995@gmail.com.com";
-    $subject = "Contact Form Submission";
-    $headers = "From: $name <$email>";
+    // Recipient email address
+    $to = "sajalkundu1995@gmail.com"; // Replace with your email address
 
-    // Send the email
-    mail($to, $subject, $message, $headers);
+    // Subject of the email
+    $subject = "New Contact Form Submission";
 
-    // Optional: Redirect the user after sending the email
-    header("Location: index.html");
+    // Message body
+    $body = "Name: $name\n";
+    $body .= "Email: $email\n\n";
+    $body .= "Message:\n$message\n";
+
+    // Email headers
+    $headers = "From: $email\r\n";
+    $headers .= "Reply-To: $email\r\n";
+
+    // Send email
+    if (mail($to, $subject, $body, $headers)) {
+        // Redirect to a thank you page (optional)
+        header("Location: thank-you.html");
+        exit;
+    } else {
+        echo "There was a problem sending your message. Please try again.";
+    }
 } else {
-    // Handle form submission error
-    echo "Error: Form not submitted.";
+    echo "Invalid request.";
 }
 ?>
