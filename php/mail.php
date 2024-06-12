@@ -1,17 +1,27 @@
 <?php
-//get data from form  
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Collect form data
+    $name = htmlspecialchars($_POST['name']);
+    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+    $message = htmlspecialchars($_POST['form-message']);
 
-$name = $_POST['name'];
-$email= $_POST['email'];
-$message= $_POST['form-message'];
-$to = "sajalkundu1995@gmail.com";
-$subject = "Mail From website";
-$txt ="Name = ". $name . "\r\n  Email = " . $email . "\r\n Message =" . $message;
-$headers = "From: noreply@sajalkundu.com" . "\r\n" .
-"CC: somebodyelse@example.com";
-if($email!=NULL){
-    mail($to,$subject,$txt,$headers);
+    // Validate email
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "Invalid email format";
+        exit;
+    }
+
+    // Email details
+    $to = "sajalkundu1995@gmail.com"; // Replace with your email address
+    $subject = "Contact Form Submission from $name";
+    $body = "Name: $name\nEmail: $email\n\nMessage:\n$message";
+    $headers = "From: $email";
+
+    // Send email
+    if (mail($to, $subject, $body, $headers)) {
+        echo "Email successfully sent";
+    } else {
+        echo "Email sending failed";
+    }
 }
-//redirect
-header("Location:index.html");
 ?>
